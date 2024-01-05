@@ -7,7 +7,6 @@ static bool set_stake_ui(ethQueryContractUI_t *msg) {
 }
 
 void handle_query_contract_ui(ethQueryContractUI_t *msg) {
-    context_t *context = (context_t *) msg->pluginContext;
     bool ret = false;
 
     // msg->title is the upper line displayed on the device.

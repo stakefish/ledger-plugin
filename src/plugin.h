@@ -56,16 +56,12 @@ typedef enum {
 // will need to adapt this struct to your plugin.
 typedef struct context_s {
     // For display.
-    uint8_t token_received[ADDRESS_LENGTH];
     char ticker[MAX_TICKER_LEN];
     uint8_t decimals;
     uint8_t token_found;
 
     // For parsing data.
     uint8_t next_param;  // Set to be the next param we expect to parse.
-    uint16_t offset;     // Offset at which the array or struct starts.
-    bool go_to_offset;   // If set, will force the parsing to iterate through parameters until
-                         // `offset` is reached.
 
     // For both parsing and display.
     selector_t selectorIndex;
