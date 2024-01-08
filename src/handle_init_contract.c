@@ -47,6 +47,9 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
         case BATCH_COLLECT_REWARD:
             context->next_param = GOERLI_BATCH_CLAIM;
             break;
+        case MINT:
+            context->next_param = GOERLI_MINT;
+            break;
         // Keep this
         default:
             PRINTF("Missing selectorIndex: %d\n", context->selectorIndex);

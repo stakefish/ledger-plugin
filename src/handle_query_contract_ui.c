@@ -10,6 +10,17 @@ static bool set_ui(ethQueryContractUI_t *msg, context_t *context) {
             strlcpy(msg->title, "Collect", msg->titleLength);
             strlcpy(msg->msg, "Rewards", msg->msgLength);
             break;
+        case GOERLI_MINT:
+            strlcpy(msg->title, "Mint NFTs", msg->titleLength);
+            return amountToString(
+                context->nfts,
+                sizeof(context->nfts),
+                0,
+                "Amount:",
+                msg->msg,
+                msg->msgLength
+            );
+            break;
         default:
             strlcpy(msg->title, "Method not", msg->titleLength);
             strlcpy(msg->msg, "supported", msg->msgLength);

@@ -28,7 +28,8 @@
 //     - a map named SELECTORS associating each NAME with it's value
 #define SELECTORS_LIST(X)                    \
     X(BATCH_DEPOSIT, 0xc82655b7)             \
-    X(BATCH_COLLECT_REWARD, 0x3ec0c7b5)
+    X(BATCH_COLLECT_REWARD, 0x3ec0c7b5)      \
+    X(MINT, 0xa0712d68)
 
 // Xmacro helpers to define the enum and map
 // Do not modify !
@@ -50,7 +51,8 @@ extern const uint32_t SELECTORS[SELECTOR_COUNT];
 // EDIT THIS: Adapt the parameter names here.
 typedef enum {
     GOERLI_BATCH_DEPOSIT,
-    GOERLI_BATCH_CLAIM
+    GOERLI_BATCH_CLAIM,
+    GOERLI_MINT
 } parameter;
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
@@ -61,6 +63,7 @@ typedef struct context_s {
     char ticker[MAX_TICKER_LEN];
     uint8_t decimals;
     uint8_t token_found;
+    uint8_t nfts[INT256_LENGTH];
 
     // For parsing data.
     uint8_t next_param;  // Set to be the next param we expect to parse.
