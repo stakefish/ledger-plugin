@@ -42,7 +42,10 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
     // to parse.
     switch (context->selectorIndex) {
         case BATCH_DEPOSIT:
-            context->next_param = UNEXPECTED_PARAMETER;
+            context->next_param = GOERLI_BATCH_DEPOSIT;
+            break;
+        case BATCH_COLLECT_REWARD:
+            context->next_param = GOERLI_BATCH_CLAIM;
             break;
         // Keep this
         default:

@@ -14,7 +14,9 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
 
     // EDIT THIS: adapt the cases and the names of the functions.
     switch (context->selectorIndex) {
-        case UNEXPECTED_PARAMETER:
+        case GOERLI_BATCH_DEPOSIT:
+            break;
+        case GOERLI_BATCH_CLAIM:
             break;
         default:
             PRINTF("Selector Index not supported: %d\n", context->selectorIndex);

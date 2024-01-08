@@ -27,7 +27,8 @@
 //     - an enum named selector_t with every NAME
 //     - a map named SELECTORS associating each NAME with it's value
 #define SELECTORS_LIST(X)                    \
-    X(BATCH_DEPOSIT, 0xc82655b7)
+    X(BATCH_DEPOSIT, 0xc82655b7)             \
+    X(BATCH_COLLECT_REWARD, 0x3ec0c7b5)
 
 // Xmacro helpers to define the enum and map
 // Do not modify !
@@ -48,7 +49,8 @@ extern const uint32_t SELECTORS[SELECTOR_COUNT];
 // Enumeration used to parse the smart contract data.
 // EDIT THIS: Adapt the parameter names here.
 typedef enum {
-    UNEXPECTED_PARAMETER,
+    GOERLI_BATCH_DEPOSIT,
+    GOERLI_BATCH_CLAIM
 } parameter;
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
