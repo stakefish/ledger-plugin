@@ -3,8 +3,21 @@
 static bool set_main_ui(ethQueryContractUI_t *msg, context_t *context) {
     switch (context->selectorIndex) {
         case GOERLI_BATCH_DEPOSIT: 
-            strlcpy(msg->title, "Staking Type", msg->titleLength);
-            strlcpy(msg->msg, "Classic", msg->msgLength);
+            strlcpy(msg->title, "Classic Staking", msg->titleLength);
+            
+            const uint8_t *eth_amount = msg->pluginSharedRO->txContent->value.value;
+            uint8_t eth_amount_size = msg->pluginSharedRO->txContent->value.length;
+
+            // Converts the uint256 number located in `eth_amount` to its string representation and
+            // copies this to `msg->msg`.
+            return amountToString(
+                eth_amount,
+                eth_amount_size,
+                WEI_TO_ETHER,
+                "ETH",
+                msg->msg,
+                msg->msgLength
+            );
             break;
         case GOERLI_BATCH_COLLECT_REWARD:
             strlcpy(msg->title, "Collect", msg->titleLength);
