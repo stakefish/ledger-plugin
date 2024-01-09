@@ -1,0 +1,9 @@
+[
+    {
+        "inputs": [],
+        "name": "requestExit",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

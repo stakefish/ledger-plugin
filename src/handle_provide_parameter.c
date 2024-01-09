@@ -19,9 +19,13 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
         case GOERLI_BATCH_CLAIM:
             break;
         case GOERLI_MINT:
-            copy_parameter(context->nfts,
-                           msg->parameter,
-                           sizeof(context->nfts));
+            copy_parameter(
+                context->nfts,
+                msg->parameter,
+                sizeof(context->nfts)
+            );
+            break;
+        case GOERLI_REQUEST_EXIT:
             break;
         default:
             PRINTF("Selector Index not supported: %d\n", context->selectorIndex);

@@ -21,6 +21,10 @@ static bool set_ui(ethQueryContractUI_t *msg, context_t *context) {
                 msg->msgLength
             );
             break;
+        case GOERLI_REQUEST_EXIT:
+            strlcpy(msg->title, "Request", msg->titleLength);
+            strlcpy(msg->msg, "exit", msg->msgLength);
+            break;
         default:
             strlcpy(msg->title, "Method not", msg->titleLength);
             strlcpy(msg->msg, "supported", msg->msgLength);

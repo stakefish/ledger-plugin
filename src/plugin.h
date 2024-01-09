@@ -29,7 +29,8 @@
 #define SELECTORS_LIST(X)                    \
     X(BATCH_DEPOSIT, 0xc82655b7)             \
     X(BATCH_COLLECT_REWARD, 0x3ec0c7b5)      \
-    X(MINT, 0xa0712d68)
+    X(MINT, 0xa0712d68)                      \
+    X(REQUEST_EXIT, 0x7f8e3b4e)
 
 // Xmacro helpers to define the enum and map
 // Do not modify !
@@ -52,7 +53,8 @@ extern const uint32_t SELECTORS[SELECTOR_COUNT];
 typedef enum {
     GOERLI_BATCH_DEPOSIT,
     GOERLI_BATCH_CLAIM,
-    GOERLI_MINT
+    GOERLI_MINT,
+    GOERLI_REQUEST_EXIT
 } parameter;
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
