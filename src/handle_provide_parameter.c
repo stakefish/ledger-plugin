@@ -60,21 +60,21 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
 
     // EDIT THIS: adapt the cases and the names of the functions.
     switch (context->selectorIndex) {
-        case BATCH_DEPOSIT:
+        case GOERLI_BATCH_DEPOSIT:
             break;
-        case BATCH_COLLECT_REWARD:
+        case GOERLI_BATCH_COLLECT_REWARD:
             break;
-        case MINT:
+        case GOERLI_MINT:
             copy_parameter(
                 context->nfts,
                 msg->parameter,
                 sizeof(context->nfts)
             );
             break;
-        case COLLECT_REWARD:
+        case GOERLI_COLLECT_REWARD:
             handle_collect_reward(msg, context);
             break;
-        case COLLECT_REWARD_FOR_NFT:
+        case GOERLI_COLLECT_REWARD_FOR_NFT:
             handle_collect_reward_for_nft(msg, context);
             break;
         default:

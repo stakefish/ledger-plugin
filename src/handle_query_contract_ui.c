@@ -2,15 +2,15 @@
 
 static bool set_main_ui(ethQueryContractUI_t *msg, context_t *context) {
     switch (context->selectorIndex) {
-        case BATCH_DEPOSIT: 
+        case GOERLI_BATCH_DEPOSIT: 
             strlcpy(msg->title, "Staking Type", msg->titleLength);
             strlcpy(msg->msg, "Classic", msg->msgLength);
             break;
-        case BATCH_COLLECT_REWARD:
+        case GOERLI_BATCH_COLLECT_REWARD:
             strlcpy(msg->title, "Collect", msg->titleLength);
             strlcpy(msg->msg, "Rewards", msg->msgLength);
             break;
-        case MINT:
+        case GOERLI_MINT:
             strlcpy(msg->title, "Mint NFTs", msg->titleLength);
             return amountToString(
                 context->nfts,
@@ -21,11 +21,11 @@ static bool set_main_ui(ethQueryContractUI_t *msg, context_t *context) {
                 msg->msgLength
             );
             break;
-        case REQUEST_EXIT:
+        case GOERLI_REQUEST_EXIT:
             strlcpy(msg->title, "Request", msg->titleLength);
             strlcpy(msg->msg, "exit", msg->msgLength);
             break;
-        case COLLECT_REWARD:
+        case GOERLI_COLLECT_REWARD:
             strlcpy(msg->title, "Beneficiary", msg->titleLength);
 
             // Prefix the address with `0x`.
@@ -44,7 +44,7 @@ static bool set_main_ui(ethQueryContractUI_t *msg, context_t *context) {
                 msg->pluginSharedRW->sha3,
                 chainid);
             break;
-        case COLLECT_REWARD_FOR_NFT:
+        case GOERLI_COLLECT_REWARD_FOR_NFT:
             strlcpy(msg->title, "Beneficiary", msg->titleLength);
 
             // Prefix the address with `0x`.
@@ -69,7 +69,7 @@ static bool set_main_ui(ethQueryContractUI_t *msg, context_t *context) {
 
 static bool set_second_screen_ui(ethQueryContractUI_t *msg, const context_t *context) {
     switch (context->selectorIndex) {
-        case COLLECT_REWARD:
+        case GOERLI_COLLECT_REWARD:
             strlcpy(msg->title, "Requested", msg->titleLength);
             return amountToString(
                 context->amount_requested,
@@ -80,7 +80,7 @@ static bool set_second_screen_ui(ethQueryContractUI_t *msg, const context_t *con
                 msg->msgLength
             );
             break;
-        case COLLECT_REWARD_FOR_NFT:
+        case GOERLI_COLLECT_REWARD_FOR_NFT:
             strlcpy(msg->title, "NFT Wallet", msg->titleLength);
 
             // Prefix the address with `0x`.

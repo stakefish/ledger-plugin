@@ -27,12 +27,12 @@
 //     - an enum named selector_t with every NAME
 //     - a map named SELECTORS associating each NAME with it's value
 #define SELECTORS_LIST(X)                    \
-    X(BATCH_DEPOSIT, 0xc82655b7)             \
-    X(BATCH_COLLECT_REWARD, 0x3ec0c7b5)      \
-    X(MINT, 0xa0712d68)                      \
-    X(REQUEST_EXIT, 0x7f8e3b4e)              \
-    X(COLLECT_REWARD, 0x1bc1f6e1)            \
-    X(COLLECT_REWARD_FOR_NFT, 0x58f2b964)
+    X(GOERLI_BATCH_DEPOSIT, 0xc82655b7)             \
+    X(GOERLI_BATCH_COLLECT_REWARD, 0x3ec0c7b5)      \
+    X(GOERLI_MINT, 0xa0712d68)                      \
+    X(GOERLI_REQUEST_EXIT, 0x7f8e3b4e)              \
+    X(GOERLI_COLLECT_REWARD, 0x1bc1f6e1)            \
+    X(GOERLI_COLLECT_REWARD_FOR_NFT, 0x58f2b964)
 
 // Xmacro helpers to define the enum and map
 // Do not modify !
@@ -53,11 +53,8 @@ extern const uint32_t SELECTORS[SELECTOR_COUNT];
 // Enumeration used to parse the smart contract data.
 // EDIT THIS: Adapt the parameter names here.
 typedef enum {
-    SINGLE_SCREEN,
-    GOERLI_MINT,
     AMOUNT_REQUESTED,
     NFT_WALLET,
-    GOERLI_COLLECT_REWARD_FOR_NFT,
     BENEFICIARY
 } parameter;
 

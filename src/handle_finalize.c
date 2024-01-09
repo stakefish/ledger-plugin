@@ -7,10 +7,10 @@ void handle_finalize(ethPluginFinalize_t *msg) {
 
     // EDIT THIS: Set the total number of screen you will need.
     msg->numScreens = 1;
-    if (context->selectorIndex == COLLECT_REWARD) {
+    if (context->selectorIndex == GOERLI_COLLECT_REWARD) {
         msg->numScreens = 2;
     }
-    if (context->selectorIndex == COLLECT_REWARD_FOR_NFT) {
+    if (context->selectorIndex == GOERLI_COLLECT_REWARD_FOR_NFT) {
         msg->numScreens = 3;
     }
 
