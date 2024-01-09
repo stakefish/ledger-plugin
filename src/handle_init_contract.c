@@ -42,19 +42,20 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
     // to parse.
     switch (context->selectorIndex) {
         case BATCH_DEPOSIT:
-            context->next_param = GOERLI_BATCH_DEPOSIT;
             break;
         case BATCH_COLLECT_REWARD:
-            context->next_param = GOERLI_BATCH_CLAIM;
             break;
         case MINT:
             context->next_param = GOERLI_MINT;
             break;
         case REQUEST_EXIT:
-            context->next_param = GOERLI_REQUEST_EXIT;
+            context->next_param = SINGLE_SCREEN;
             break;
         case COLLECT_REWARD:
-            context->next_param = GOERLI_COLLECT_REWARD;
+            context->next_param = BENEFICIARY;
+            break;
+        case COLLECT_REWARD_FOR_NFT:
+            context->next_param = BENEFICIARY;
             break;
         // Keep this
         default:

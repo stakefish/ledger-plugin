@@ -2,8 +2,33 @@
 
 static void handle_collect_reward(ethPluginProvideParameter_t *msg, context_t *context) {
     switch (context->next_param) {
-        case GOERLI_COLLECT_REWARD:  
+        case BENEFICIARY:  
             copy_address(context->beneficiary, msg->parameter, sizeof(context->beneficiary));
+            context->next_param = AMOUNT_REQUESTED;
+            break;
+        case AMOUNT_REQUESTED: 
+            copy_parameter(
+                context->amount_requested,
+                msg->parameter,
+                sizeof(context->amount_requested)
+            );
+            break;
+        // Keep this
+        default:
+            PRINTF("Param not supported: %d\n", context->next_param);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+static void handle_collect_reward_for_nft(ethPluginProvideParameter_t *msg, context_t *context) {
+    switch (context->next_param) {
+        case BENEFICIARY:  
+            copy_address(context->beneficiary, msg->parameter, sizeof(context->beneficiary));
+            context->next_param = NFT_WALLET;
+            break;
+        case NFT_WALLET:  
+            copy_address(context->nft_wallet, msg->parameter, sizeof(context->nft_wallet));
             context->next_param = AMOUNT_REQUESTED;
             break;
         case AMOUNT_REQUESTED: 
@@ -35,21 +60,22 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
 
     // EDIT THIS: adapt the cases and the names of the functions.
     switch (context->selectorIndex) {
-        case GOERLI_BATCH_DEPOSIT:
+        case BATCH_DEPOSIT:
             break;
-        case GOERLI_BATCH_CLAIM:
+        case BATCH_COLLECT_REWARD:
             break;
-        case GOERLI_MINT:
+        case MINT:
             copy_parameter(
                 context->nfts,
                 msg->parameter,
                 sizeof(context->nfts)
             );
             break;
-        case GOERLI_REQUEST_EXIT:
-            break;
-        case GOERLI_COLLECT_REWARD:
+        case COLLECT_REWARD:
             handle_collect_reward(msg, context);
+            break;
+        case COLLECT_REWARD_FOR_NFT:
+            handle_collect_reward_for_nft(msg, context);
             break;
         default:
             PRINTF("Selector Index not supported: %d\n", context->selectorIndex);

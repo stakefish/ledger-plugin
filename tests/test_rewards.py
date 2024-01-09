@@ -82,12 +82,59 @@ def test_batch_collect_reward(backend, firmware, navigator, test_name):
 def test_collect_reward(backend, firmware, navigator, test_name):
     client = EthAppClient(backend)
 
-    # values taken from https://goerli.etherscan.io/tx/0x535fac3576648e7eeb266dc1af497367578b187857b29b6720d7b42d3d0c0e39
+    # values taken from https://goerli.etherscan.io/tx/0xc607fbf1e6f80a75b447934ec007ede53d45dd9a55981fb6593182d6a66af4f7
     data = contract.encodeABI(
         fn_name="collectReward",
         args=[
             "0x9308245A3Ca756b506fa1D3a1962b5a563F92470",
             12
+        ],
+    )
+
+    # first setup the external plugin
+    with client.set_external_plugin(PLUGIN_NAME,
+                                    contract.address,
+                                    # Extract function selector from the encoded data
+                                    get_selector_from_data(data)):
+        pass
+
+    # send the transaction
+    with client.sign("m/44'/60'/1'/0/0", {
+             "nonce": 20,
+             "maxFeePerGas": Web3.to_wei(145, "gwei"),
+             "maxPriorityFeePerGas": Web3.to_wei(1.5, "gwei"),
+             "gas": 173290,
+             "to": contract.address,
+             "value": Web3.to_wei(0, "ether"),
+             "chainId": ChainId.GOR,
+             "data": data
+         }):
+
+        # Validate the on-screen request by performing the navigation appropriate for this device
+        if firmware.device.startswith("nano"):
+            navigator.navigate_until_text_and_compare(NavInsID.RIGHT_CLICK,
+                                                      [NavInsID.BOTH_CLICK],
+                                                      "Accept",
+                                                      ROOT_SCREENSHOT_PATH,
+                                                      test_name)
+        else:
+            navigator.navigate_until_text_and_compare(NavInsID.USE_CASE_REVIEW_TAP,
+                                                      [NavInsID.USE_CASE_REVIEW_CONFIRM,
+                                                       NavInsID.USE_CASE_STATUS_DISMISS],
+                                                      "Hold to sign",
+                                                      ROOT_SCREENSHOT_PATH,
+                                                      test_name)
+
+def test_collect_reward_for_nft(backend, firmware, navigator, test_name):
+    client = EthAppClient(backend)
+
+    # values taken from https://goerli.etherscan.io/tx/0xd5aaa279a74c7e49d0e8195aafe4f78100ade3ddd31b6e972fd6762dd55739bd
+    data = contract.encodeABI(
+        fn_name="collectRewardForNFT",
+        args=[
+            "0x9308245A3Ca756b506fa1D3a1962b5a563F92470",
+            "0x97b6e0B31bAaC485B74a59D37178Fab3A01FC7B3",
+            100000000000000
         ],
     )
 

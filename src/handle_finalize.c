@@ -10,6 +10,9 @@ void handle_finalize(ethPluginFinalize_t *msg) {
     if (context->selectorIndex == COLLECT_REWARD) {
         msg->numScreens = 2;
     }
+    if (context->selectorIndex == COLLECT_REWARD_FOR_NFT) {
+        msg->numScreens = 3;
+    }
 
     msg->result = ETH_PLUGIN_RESULT_OK;
 }
