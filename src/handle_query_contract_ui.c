@@ -1,6 +1,6 @@
 #include "plugin.h"
 
-static bool set_ui(ethQueryContractUI_t *msg, context_t *context) {
+static bool set_main_ui(ethQueryContractUI_t *msg, context_t *context) {
     switch (context->selectorIndex) {
         case GOERLI_BATCH_DEPOSIT: 
             strlcpy(msg->title, "Staking Type", msg->titleLength);
@@ -25,12 +25,43 @@ static bool set_ui(ethQueryContractUI_t *msg, context_t *context) {
             strlcpy(msg->title, "Request", msg->titleLength);
             strlcpy(msg->msg, "exit", msg->msgLength);
             break;
+        case GOERLI_COLLECT_REWARD:
+            strlcpy(msg->title, "Beneficiary", msg->titleLength);
+
+            // Prefix the address with `0x`.
+            msg->msg[0] = '0';
+            msg->msg[1] = 'x';
+
+            // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
+            // Setting it to `0` will make it work with every chainID :)
+            uint64_t chainid = 0;
+
+            // Get the string representation of the address stored in `context->beneficiary`. Put it in
+            // `msg->msg`.
+            return getEthAddressStringFromBinary(
+                context->beneficiary,
+                msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
+                msg->pluginSharedRW->sha3,
+                chainid);
+            break;
         default:
             strlcpy(msg->title, "Method not", msg->titleLength);
             strlcpy(msg->msg, "supported", msg->msgLength);
     }
     return true;
 }
+
+static bool set_requested_ui(ethQueryContractUI_t *msg, const context_t *context) {
+    strlcpy(msg->title, "Requested", msg->titleLength);
+
+    return amountToString(context->amount_requested,
+                          sizeof(context->amount_requested),
+                          0,
+                          "",
+                          msg->msg,
+                          msg->msgLength);
+}
+
 
 void handle_query_contract_ui(ethQueryContractUI_t *msg) {
     bool ret = false;
@@ -46,7 +77,10 @@ void handle_query_contract_ui(ethQueryContractUI_t *msg) {
     // EDIT THIS: Adapt the cases for the screens you'd like to display.
     switch (msg->screenIndex) {
         case 0:
-            ret = set_ui(msg, context);
+            ret = set_main_ui(msg, context);
+            break;
+        case 1:
+            ret = set_requested_ui(msg, context);
             break;
         // Keep this
         default:

@@ -53,6 +53,9 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
         case REQUEST_EXIT:
             context->next_param = GOERLI_REQUEST_EXIT;
             break;
+        case COLLECT_REWARD:
+            context->next_param = GOERLI_COLLECT_REWARD;
+            break;
         // Keep this
         default:
             PRINTF("Missing selectorIndex: %d\n", context->selectorIndex);

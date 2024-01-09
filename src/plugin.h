@@ -30,7 +30,8 @@
     X(BATCH_DEPOSIT, 0xc82655b7)             \
     X(BATCH_COLLECT_REWARD, 0x3ec0c7b5)      \
     X(MINT, 0xa0712d68)                      \
-    X(REQUEST_EXIT, 0x7f8e3b4e)
+    X(REQUEST_EXIT, 0x7f8e3b4e)              \
+    X(COLLECT_REWARD, 0x1bc1f6e1)
 
 // Xmacro helpers to define the enum and map
 // Do not modify !
@@ -54,7 +55,9 @@ typedef enum {
     GOERLI_BATCH_DEPOSIT,
     GOERLI_BATCH_CLAIM,
     GOERLI_MINT,
-    GOERLI_REQUEST_EXIT
+    GOERLI_REQUEST_EXIT,
+    GOERLI_COLLECT_REWARD,
+    AMOUNT_REQUESTED
 } parameter;
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
@@ -66,6 +69,8 @@ typedef struct context_s {
     uint8_t decimals;
     uint8_t token_found;
     uint8_t nfts[INT256_LENGTH];
+    uint8_t beneficiary[ADDRESS_LENGTH];
+    uint8_t amount_requested[INT256_LENGTH];
 
     // For parsing data.
     uint8_t next_param;  // Set to be the next param we expect to parse.

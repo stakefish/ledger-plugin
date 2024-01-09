@@ -27,6 +27,10 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
             strlcpy(msg->version, "Exit", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;
+        case GOERLI_COLLECT_REWARD:
+            strlcpy(msg->version, "Collect", msg->versionLength);
+            msg->result = ETH_PLUGIN_RESULT_OK;
+            break;
         default:
             PRINTF("Selector index: %d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
