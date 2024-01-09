@@ -11,27 +11,27 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
 
     // EDIT THIS: Adapt the cases by modifying the strings you pass to `strlcpy`.
     switch (context->selectorIndex) {
-        case GOERLI_BATCH_DEPOSIT:
+        case BATCH_DEPOSIT:
             strlcpy(msg->version, "Stake", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;
-        case GOERLI_BATCH_COLLECT_REWARD:
+        case BATCH_COLLECT_REWARD:
             strlcpy(msg->version, "Claim", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;
-        case GOERLI_MINT:
+        case MINT:
             strlcpy(msg->version, "Mint", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;
-        case GOERLI_REQUEST_EXIT:
+        case REQUEST_EXIT:
             strlcpy(msg->version, "Exit", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;
-        case GOERLI_COLLECT_REWARD:
+        case COLLECT_REWARD:
             strlcpy(msg->version, "Reward", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;
-        case GOERLI_COLLECT_REWARD_FOR_NFT:
+        case COLLECT_REWARD_FOR_NFT:
             strlcpy(msg->version, "NFT Reward", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;

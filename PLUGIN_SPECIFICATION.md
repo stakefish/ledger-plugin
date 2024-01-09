@@ -14,8 +14,6 @@ Smart contracts covered by the plugin shall be described here:
 | Goerli  | V1      | Mint           | `0x5B41FFB9C448C02Ff3D0401b0374b67EFcB73C7E` |
 | Goerli  | V1      | Request Exit   | `0xC57beAe054B45Bb49B65b42C49c6f4b010f976e5` |
 | Goerli  | V1      | Rewards        | `0x51a80650305cdA7c74F40347E47d6e318a91dE9F` |
-| Goerli  | V1      | Rewards        | `0x51a80650305cdA7c74F40347E47d6e318a91dE9F` |
-| Goerli  | V1      | Rewards        | `0x51a80650305cdA7c74F40347E47d6e318a91dE9F` |
 
 ## Functions
 

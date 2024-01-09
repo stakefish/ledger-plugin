@@ -41,18 +41,18 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
     // EDIT THIS: Adapt the `cases`, and set the `next_param` to be the first parameter you expect
     // to parse.
     switch (context->selectorIndex) {
-        case GOERLI_BATCH_DEPOSIT:
+        case BATCH_DEPOSIT:
             break;
-        case GOERLI_BATCH_COLLECT_REWARD:
+        case BATCH_COLLECT_REWARD:
             break;
-        case GOERLI_MINT:
+        case MINT:
             break;
-        case GOERLI_REQUEST_EXIT:
+        case REQUEST_EXIT:
             break;
-        case GOERLI_COLLECT_REWARD:
+        case COLLECT_REWARD:
             context->next_param = BENEFICIARY;
             break;
-        case GOERLI_COLLECT_REWARD_FOR_NFT:
+        case COLLECT_REWARD_FOR_NFT:
             context->next_param = BENEFICIARY;
             break;
         // Keep this
