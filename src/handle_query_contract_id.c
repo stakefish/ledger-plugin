@@ -10,11 +10,34 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
     strlcpy(msg->name, APPNAME, msg->nameLength);
 
     // EDIT THIS: Adapt the cases by modifying the strings you pass to `strlcpy`.
-    if (context->selectorIndex == SWAP_EXACT_ETH_FOR_TOKENS) {
-        strlcpy(msg->version, "Swap", msg->versionLength);
-        msg->result = ETH_PLUGIN_RESULT_OK;
-    } else {
-        PRINTF("Selector index: %d not supported\n", context->selectorIndex);
-        msg->result = ETH_PLUGIN_RESULT_ERROR;
+    switch (context->selectorIndex) {
+        case BATCH_DEPOSIT:
+            strlcpy(msg->version, "Stake", msg->versionLength);
+            msg->result = ETH_PLUGIN_RESULT_OK;
+            break;
+        case BATCH_COLLECT_REWARD:
+            strlcpy(msg->version, "Claim", msg->versionLength);
+            msg->result = ETH_PLUGIN_RESULT_OK;
+            break;
+        case MINT:
+            strlcpy(msg->version, "Mint", msg->versionLength);
+            msg->result = ETH_PLUGIN_RESULT_OK;
+            break;
+        case REQUEST_EXIT:
+            strlcpy(msg->version, "Exit", msg->versionLength);
+            msg->result = ETH_PLUGIN_RESULT_OK;
+            break;
+        case COLLECT_REWARD:
+            strlcpy(msg->version, "Reward", msg->versionLength);
+            msg->result = ETH_PLUGIN_RESULT_OK;
+            break;
+        case COLLECT_REWARD_FOR_NFT:
+            strlcpy(msg->version, "NFT Reward", msg->versionLength);
+            msg->result = ETH_PLUGIN_RESULT_OK;
+            break;
+        default:
+            PRINTF("Selector index: %d not supported\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
     }
 }

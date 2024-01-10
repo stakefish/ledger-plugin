@@ -27,8 +27,12 @@
 //     - an enum named selector_t with every NAME
 //     - a map named SELECTORS associating each NAME with it's value
 #define SELECTORS_LIST(X)                    \
-    X(SWAP_EXACT_ETH_FOR_TOKENS, 0x7ff36ab5) \
-    X(BOILERPLATE_DUMMY_2, 0x13374242)
+    X(BATCH_DEPOSIT, 0xc82655b7)             \
+    X(BATCH_COLLECT_REWARD, 0x3ec0c7b5)      \
+    X(MINT, 0xa0712d68)                      \
+    X(REQUEST_EXIT, 0x7f8e3b4e)              \
+    X(COLLECT_REWARD, 0x1bc1f6e1)            \
+    X(COLLECT_REWARD_FOR_NFT, 0x58f2b964)
 
 // Xmacro helpers to define the enum and map
 // Do not modify !
@@ -49,12 +53,9 @@ extern const uint32_t SELECTORS[SELECTOR_COUNT];
 // Enumeration used to parse the smart contract data.
 // EDIT THIS: Adapt the parameter names here.
 typedef enum {
-    MIN_AMOUNT_RECEIVED = 0,
-    TOKEN_RECEIVED,
-    BENEFICIARY,
-    PATH_OFFSET,
-    PATH_LENGTH,
-    UNEXPECTED_PARAMETER,
+    AMOUNT_REQUESTED,
+    NFT_WALLET,
+    BENEFICIARY
 } parameter;
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
@@ -62,18 +63,16 @@ typedef enum {
 // will need to adapt this struct to your plugin.
 typedef struct context_s {
     // For display.
-    uint8_t amount_received[INT256_LENGTH];
-    uint8_t beneficiary[ADDRESS_LENGTH];
-    uint8_t token_received[ADDRESS_LENGTH];
     char ticker[MAX_TICKER_LEN];
     uint8_t decimals;
     uint8_t token_found;
+    uint8_t nfts[INT256_LENGTH];
+    uint8_t amount_requested[INT256_LENGTH];
+    uint8_t beneficiary[ADDRESS_LENGTH];
+    uint8_t nft_wallet[ADDRESS_LENGTH];
 
     // For parsing data.
     uint8_t next_param;  // Set to be the next param we expect to parse.
-    uint16_t offset;     // Offset at which the array or struct starts.
-    bool go_to_offset;   // If set, will force the parsing to iterate through parameters until
-                         // `offset` is reached.
 
     // For both parsing and display.
     selector_t selectorIndex;

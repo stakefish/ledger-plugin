@@ -1,37 +1,42 @@
 #include "plugin.h"
 
-// EDIT THIS: Remove this function and write your own handlers!
-static void handle_swap_exact_eth_for_tokens(ethPluginProvideParameter_t *msg, context_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+static void handle_collect_reward(ethPluginProvideParameter_t *msg, context_t *context) {
     switch (context->next_param) {
-        case MIN_AMOUNT_RECEIVED:  // amountOutMin
-            copy_parameter(context->amount_received,
-                           msg->parameter,
-                           sizeof(context->amount_received));
-            context->next_param = PATH_OFFSET;
-            break;
-        case PATH_OFFSET:  // path
-            context->offset = U2BE(msg->parameter, PARAMETER_LENGTH - 2);
-            context->next_param = BENEFICIARY;
-            break;
-        case BENEFICIARY:  // to
+        case BENEFICIARY:  
             copy_address(context->beneficiary, msg->parameter, sizeof(context->beneficiary));
-            context->next_param = PATH_LENGTH;
-            context->go_to_offset = true;
+            context->next_param = AMOUNT_REQUESTED;
             break;
-        case PATH_LENGTH:
-            context->offset = msg->parameterOffset - SELECTOR_SIZE + PARAMETER_LENGTH * 2;
-            context->go_to_offset = true;
-            context->next_param = TOKEN_RECEIVED;
+        case AMOUNT_REQUESTED: 
+            copy_parameter(
+                context->amount_requested,
+                msg->parameter,
+                sizeof(context->amount_requested)
+            );
             break;
-        case TOKEN_RECEIVED:  // path[1] -> contract address of token received
-            copy_address(context->token_received, msg->parameter, sizeof(context->token_received));
-            context->next_param = UNEXPECTED_PARAMETER;
+        // Keep this
+        default:
+            PRINTF("Param not supported: %d\n", context->next_param);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+static void handle_collect_reward_for_nft(ethPluginProvideParameter_t *msg, context_t *context) {
+    switch (context->next_param) {
+        case BENEFICIARY:  
+            copy_address(context->beneficiary, msg->parameter, sizeof(context->beneficiary));
+            context->next_param = NFT_WALLET;
+            break;
+        case NFT_WALLET:  
+            copy_address(context->nft_wallet, msg->parameter, sizeof(context->nft_wallet));
+            context->next_param = AMOUNT_REQUESTED;
+            break;
+        case AMOUNT_REQUESTED: 
+            copy_parameter(
+                context->amount_requested,
+                msg->parameter,
+                sizeof(context->amount_requested)
+            );
             break;
         // Keep this
         default:
@@ -55,10 +60,22 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
 
     // EDIT THIS: adapt the cases and the names of the functions.
     switch (context->selectorIndex) {
-        case SWAP_EXACT_ETH_FOR_TOKENS:
-            handle_swap_exact_eth_for_tokens(msg, context);
+        case BATCH_DEPOSIT:
             break;
-        case BOILERPLATE_DUMMY_2:
+        case BATCH_COLLECT_REWARD:
+            break;
+        case MINT:
+            copy_parameter(
+                context->nfts,
+                msg->parameter,
+                sizeof(context->nfts)
+            );
+            break;
+        case COLLECT_REWARD:
+            handle_collect_reward(msg, context);
+            break;
+        case COLLECT_REWARD_FOR_NFT:
+            handle_collect_reward_for_nft(msg, context);
             break;
         default:
             PRINTF("Selector Index not supported: %d\n", context->selectorIndex);

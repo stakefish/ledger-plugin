@@ -41,11 +41,19 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
     // EDIT THIS: Adapt the `cases`, and set the `next_param` to be the first parameter you expect
     // to parse.
     switch (context->selectorIndex) {
-        case SWAP_EXACT_ETH_FOR_TOKENS:
-            context->next_param = MIN_AMOUNT_RECEIVED;
+        case BATCH_DEPOSIT:
             break;
-        case BOILERPLATE_DUMMY_2:
-            context->next_param = TOKEN_RECEIVED;
+        case BATCH_COLLECT_REWARD:
+            break;
+        case MINT:
+            break;
+        case REQUEST_EXIT:
+            break;
+        case COLLECT_REWARD:
+            context->next_param = BENEFICIARY;
+            break;
+        case COLLECT_REWARD_FOR_NFT:
+            context->next_param = BENEFICIARY;
             break;
         // Keep this
         default:
