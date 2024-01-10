@@ -19,7 +19,7 @@ ABIS_FOLDER = "%s/abis" % (os.path.dirname(__file__))
 
 PLUGIN_NAME = get_appname_from_makefile()
 
-with open("%s/0x0fa7c8350c8f028bc55899dbc1446ecd342958fe.abi.json" % (ABIS_FOLDER)) as file:
+with open("%s/0x0FA7C8350c8F028BC55899DBC1446eCD342958fE.abi.json" % (ABIS_FOLDER)) as file:
     contract = Web3().eth.contract(
         abi=json.load(file),
         # Get address from filename
