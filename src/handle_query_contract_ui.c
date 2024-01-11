@@ -34,10 +34,6 @@ static bool set_main_ui(ethQueryContractUI_t *msg, context_t *context) {
                 msg->msgLength
             );
             break;
-        case REQUEST_EXIT:
-            strlcpy(msg->title, "Request", msg->titleLength);
-            strlcpy(msg->msg, "exit", msg->msgLength);
-            break;
         case COLLECT_REWARD:
             strlcpy(msg->title, "Beneficiary", msg->titleLength);
 
@@ -72,6 +68,10 @@ static bool set_main_ui(ethQueryContractUI_t *msg, context_t *context) {
                 msg->pluginSharedRW->sha3,
                 0
             );
+            break;
+        case MULTICALL:
+            strlcpy(msg->title, "Request", msg->titleLength);
+            strlcpy(msg->msg, "NFT Exit", msg->msgLength);
             break;
         default:
             strlcpy(msg->title, "Method not", msg->titleLength);

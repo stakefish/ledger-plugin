@@ -23,16 +23,16 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
             strlcpy(msg->version, "Mint", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;
-        case REQUEST_EXIT:
-            strlcpy(msg->version, "Exit", msg->versionLength);
-            msg->result = ETH_PLUGIN_RESULT_OK;
-            break;
         case COLLECT_REWARD:
             strlcpy(msg->version, "Reward", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;
         case COLLECT_REWARD_FOR_NFT:
             strlcpy(msg->version, "NFT Reward", msg->versionLength);
+            msg->result = ETH_PLUGIN_RESULT_OK;
+            break;
+        case MULTICALL:
+            strlcpy(msg->version, "Exit NFT", msg->versionLength);
             msg->result = ETH_PLUGIN_RESULT_OK;
             break;
         default:

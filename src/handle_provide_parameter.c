@@ -77,6 +77,8 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
         case COLLECT_REWARD_FOR_NFT:
             handle_collect_reward_for_nft(msg, context);
             break;
+        case MULTICALL:
+            break;
         default:
             PRINTF("Selector Index not supported: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
