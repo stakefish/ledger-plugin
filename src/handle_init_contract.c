@@ -47,13 +47,13 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
             break;
         case MINT:
             break;
-        case REQUEST_EXIT:
-            break;
         case COLLECT_REWARD:
             context->next_param = BENEFICIARY;
             break;
         case COLLECT_REWARD_FOR_NFT:
             context->next_param = BENEFICIARY;
+            break;
+        case MULTICALL:
             break;
         // Keep this
         default:
